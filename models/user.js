@@ -33,4 +33,12 @@ const UserSchema = new Schema({
     member: { type: Boolean },
 });
 
+UserSchema.virtual("full_name").get(function () {
+    let name = "";
+    if (this.first_name && this.last_name) {
+        name = `${this.first_name} ${this.last_name}`;
+    }
+    return name;
+});
+
 module.exports = mongoose.model("User", UserSchema);
