@@ -8,6 +8,7 @@ const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcryptjs");
 const RateLimit = require("express-rate-limit");
 const helmet = require("helmet");
+const compression = require("compression");
 
 // Set up mongoose connection
 const mongoose = require("mongoose");
@@ -44,6 +45,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+
+app.use(compression());
 
 app.use("/", indexRouter);
 app.use("/messages", messagesRouter);
