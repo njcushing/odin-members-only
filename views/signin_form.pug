@@ -12,6 +12,9 @@ block content
       input#password(type="password" name="password" required="true")
     button(type="submit") Sign In
   
+  if(authError)
+    p= authError
+
   h3 Or, if you do not yet have an account, create a new account instead: 
   a(href="/sign-up")
     button Create Account
