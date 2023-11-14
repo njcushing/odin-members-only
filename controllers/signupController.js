@@ -6,7 +6,68 @@ exports.signupGet = asyncHandler(async (req, res, next) => {
 });
 
 exports.signupPost = [
+    body("firstNames", "First Name(s) field must not be empty")
+        .trim()
+        .isLength({ min: 1 })
+        .escape(),
+    body("lastName", "Last Name field must not be empty")
+        .trim()
+        .isLength({ min: 1 })
+        .escape(),
+    body("username")
+        .trim()
+        .isLength({ min: 1 })
+        .withMessage("Username field must not be empty")
+        .escape()
+        .isEmail()
+        .withMessage(
+            "Username must be a VALID email address in the format: name@example.com"
+        )
+        .normalizeEmail({ all_lowercase: true }),
+    body("password", "Password field must not be empty")
+        .trim()
+        .isLength({ min: 1 })
+        .escape(),
+    body("confirmPassword")
+        .trim()
+        .isLength({ min: 1 })
+        .withMessage("Confirm Password field must not be empty")
+        .escape()
+        .custom((value, { req, loc, path }) => {
+            if (value !== req.body.password) {
+                throw new Error("Passwords do not match");
+            } else {
+                return value;
+            }
+        }),
     asyncHandler(async (req, res, next) => {
-        // ...
+        const errors = validationResult(req);
+        /*
+        if (errors.isEmpty()) {
+            try {
+                bcrypt.hash(
+                    req.body.password,
+                    10,
+                    async (err, hashedPassword) => {
+                        if (err) {
+                            return err;
+                        } else {
+                            const user = new User({
+                                username: req.body.username,
+                                password: hashedPassword,
+                            });
+                            const result = await user.save();
+                            res.redirect("/");
+                        }
+                    }
+                );
+            } catch (err) {
+                return next(err);
+            }
+        }
+        */
+        res.render("signup_form", {
+            errors: !errors.isEmpty() ? errors.array() : null,
+        });
     }),
 ];
