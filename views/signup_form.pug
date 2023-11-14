@@ -1,0 +1,29 @@
+extends layout
+
+block content
+
+  h1 Please enter your details:
+  form(action="" method="POST")
+    div.form-group
+      label(for="first-names") First Name(s): 
+      input#first-names(type="text" name="firstNames" placeholder="e.g. - John" required="true")
+      br
+      label(for="last-name") Last Name: 
+      input#last-name(type="text" name="lastName" placeholder="e.g. - Smith" required="true")
+      br
+      label(for="username") Username: 
+      input#username(type="email" name="username" placeholder="name@example.com" required="true")
+      br
+      label(for="password") Password: 
+      input#password(type="password" name="password" required="true")
+      br
+      label(for="confirm-password") Confirm Password: 
+      input#confirm-password(type="password" name="confirmPassword" required="true")
+    button(type="submit") Create Account
+  
+  if (errors)
+    br
+    h5 Warning: 
+    ul
+      for error in errors
+        li= error.msg
