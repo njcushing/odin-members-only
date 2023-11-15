@@ -24,15 +24,27 @@ exports.signinPost = [
     asyncHandler(async (req, res, next) => {
         const errors = validationResult(req);
         if (errors.isEmpty()) {
-            passport.authenticate("local", {
-                successRedirect: "/",
+            passport.authenticate("local", null, (err, user, options) => {
+                if (err) next(err);
+                if (user) res.redirect("/");
+                if (options && options.message) {
+                    res.render("signin_form", {
+                        errors: !errors.isEmpty() ? errors.array() : null,
+                        authError: errors.isEmpty()
+                            ? new Error(
+                                  "Invalid login credentials - please try again."
+                              )
+                            : null,
+                    });
+                }
+            })(req, res, next);
+        } else {
+            res.render("signin_form", {
+                errors: !errors.isEmpty() ? errors.array() : null,
             });
         }
-        res.render("signin_form", {
-            errors: !errors.isEmpty() ? errors.array() : null,
-            authError: errors.isEmpty()
-                ? new Error("Invalid login credentials - please try again.")
-                : null,
-        });
+    }),
+    asyncHandler(async (req, res, next) => {
+        console.log(req.authInfo);
     }),
 ];

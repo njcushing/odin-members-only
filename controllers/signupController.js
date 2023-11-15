@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
+const passport = require("passport");
 const User = require("../models/user");
 
 exports.signupGet = asyncHandler(async (req, res, next) => {
@@ -61,7 +62,10 @@ exports.signupPost = [
                                     password: hashedPassword,
                                 });
                                 const result = await user.save();
-                                res.redirect("/");
+                                passport.authenticate("local", {
+                                    successRedirect: "/",
+                                });
+                                res.redirect("/sign-in");
                             } catch (err) {
                                 if (err.code === 11000) {
                                     res.render("signup_form", {
