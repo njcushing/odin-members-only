@@ -20,10 +20,6 @@ const UserSchema = new Schema({
         lowercase: true,
         unique: true,
         required: true,
-        validate: [
-            isEmail,
-            "Please enter a valid email address in the format: example@example.com",
-        ],
     },
     password: {
         type: String,
