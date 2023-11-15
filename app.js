@@ -10,6 +10,8 @@ const RateLimit = require("express-rate-limit");
 const helmet = require("helmet");
 const compression = require("compression");
 
+const User = require("./models/user");
+
 // Set up mongoose connection
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
@@ -46,12 +48,14 @@ app.set("view engine", "pug");
 
 // Try to find user credentials in database
 passport.use(
-    new LocalStrategy(async (username, password, done) => {
+    new LocalStrategy(async (email, password, done) => {
         try {
             // Match user
-            const user = await User.findOne({ username: username });
+            const user = await User.findOne({ email: email });
             if (!user) {
-                return done(null, false, { message: "Incorrect username" });
+                return done(null, false, {
+                    message: "Email address not found",
+                });
             }
             // If user found, match hashed password
             const match = await bcrypt.compare(password, user.password);
