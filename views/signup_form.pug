@@ -21,6 +21,9 @@ block content
       input#confirm-password(type="password" name="confirmPassword" required="true")
     button(type="submit") Create Account
   
+  if(authError)
+    p= authError
+
   if (errors)
     br
     h5 Warning: 
