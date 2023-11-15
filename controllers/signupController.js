@@ -53,14 +53,23 @@ exports.signupPost = [
                         if (err) {
                             return err;
                         } else {
-                            const user = new User({
-                                first_name: req.body.firstNames,
-                                last_name: req.body.lastName,
-                                email: req.body.username,
-                                password: hashedPassword,
-                            });
-                            const result = await user.save();
-                            res.redirect("/");
+                            try {
+                                const user = new User({
+                                    first_name: req.body.firstNames,
+                                    last_name: req.body.lastName,
+                                    email: req.body.username,
+                                    password: hashedPassword,
+                                });
+                                const result = await user.save();
+                                res.redirect("/");
+                            } catch (err) {
+                                if (err.code === 11000) {
+                                    res.render("signup_form", {
+                                        authError:
+                                            "This email is already in use. Please use another one.",
+                                    });
+                                }
+                            }
                         }
                     }
                 );
