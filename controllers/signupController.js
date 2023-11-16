@@ -60,6 +60,7 @@ exports.signupPost = [
                                     last_name: req.body.lastName,
                                     email: req.body.username,
                                     password: hashedPassword,
+                                    member: false,
                                 });
                                 const result = await user.save();
                                 passport.authenticate("local", {
