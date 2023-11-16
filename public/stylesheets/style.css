@@ -7,6 +7,12 @@ a {
     color: #00B7FF;
 }
 
+.signed-in-user-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
 .message-list {
     display: flex;
     flex-direction: column;

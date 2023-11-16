@@ -4,18 +4,19 @@ block content
   h1 Welcome to the Secret Clubhouse!
   if (currentUser)
     h2 Welcome back #{currentUser.first_name} #{currentUser.last_name}!
-    a(href="/sign-out")
-      button Sign Out
-    a(href="/new-message")
-      button Create a New Message
-    if (!currentUser.member)
-      p It appears you are not yet a member. Without member status, you will not be able to see the author of messages.
-      a(href="/membership")
-        button Become a Member
-    if (!currentUser.admin)
-      p It appears you are not an administrator. Without administrator status, you will not be able to delete messages.
-      a(href="/administrator")
-        button Become an Administrator
+    div.signed-in-user-options
+      a(href="/sign-out")
+        button Sign Out
+      a(href="/new-message")
+        button Create a New Message
+      if (!currentUser.member)
+        p It appears you are not yet a member. Without member status, you will not be able to see the author of messages.
+        a(href="/membership")
+          button Become a Member
+      if (!currentUser.admin)
+        p It appears you are not an administrator. Without administrator status, you will not be able to delete messages.
+        a(href="/administrator")
+          button Become an Administrator
   else
     h2 You must be signed in to post messages.
     a(href="/sign-in")
