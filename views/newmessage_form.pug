@@ -5,7 +5,7 @@ block content
   if (currentUser)
     form(action="" method="POST")
       label(for="title") Title:
-      input#title(name="title" required=true value=message ? message.title : "")
+      input#title(name="title" type="text" required=true value=message ? message.title : "")
       br
       label(for="text") Text:
       textarea#text(name="text" required=true) #{message ? message.text : ""}
