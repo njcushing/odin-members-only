@@ -10,7 +10,11 @@ block content
       label(for="text") Text:
       textarea#text(name="text" required=true) #{message ? message.text : ""}
       br
-    button(type="submit") Submit New Message
+      button(type="submit") Submit New Message
+    if (errors)
+      ul
+        for error in errors
+          li= error.msg
   else
     p You must be signed in to create new messages.
   hr
