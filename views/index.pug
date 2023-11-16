@@ -11,13 +11,19 @@ block content
     a(href="/sign-in")
       button Sign In
   hr
-  h3 Messages:
   if (messages)
     ul.message-list(style={"list-style": "none"})
       for message in messages
         li.message
-          h4.message-title= message.title
-          h5.message-date-posted Date Posted: #{message.date_posted_formatted}
-          h5.message-author= currentUser ? currentUser.member ? message.author.first_name : "Become a member to see the author of this message" : "Log in to see the author of this message"
+          div.message-information
+            h4.message-title= message.title
+            h5.message-date-posted Date Posted: #{message.date_posted_formatted}
+            if (currentUser)
+              if (currentUser.member)
+                h5.message-author= message.author.first_name
+              else
+                h5.message-author-failed Become a member to see the author of this message
+            else
+              h5.message-author-failed Log in to see the author of this message
           p.message-text= message.text
 
