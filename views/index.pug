@@ -24,7 +24,7 @@ block content
             h5.message-date-posted Date Posted: #{message.date_posted_formatted}
             if (currentUser)
               if (currentUser.member)
-                h5.message-author= message.author.first_name
+                h5.message-author Posted by: #{`${message.author.first_name} ${message.author.last_name}`}
               else
                 h5.message-author-failed Become a member to see the author of this message
             else
