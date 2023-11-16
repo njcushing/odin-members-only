@@ -11,7 +11,7 @@ const MessageSchema = new Schema({
 });
 
 MessageSchema.virtual("url").get(function () {
-    return `/messages/${this._id}`;
+    return `${this._id}`;
 });
 
 MessageSchema.virtual("date_posted_formatted").get(function () {
