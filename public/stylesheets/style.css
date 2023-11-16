@@ -50,7 +50,7 @@ a {
 .message-title,
 .message-date-posted,
 .message-author,
-.message-author-failed,
+.message-date-posted-author-failed,
 .message-text {
     padding: 0rem;
     margin: 0rem;
@@ -67,7 +67,7 @@ a {
 .message-author {
     font-size: 1.0rem;
 }
-.message-author-failed {
+.message-date-posted-author-failed {
     color: rgba(36, 36, 36, 1);
     font-size: 0.8rem;
 }

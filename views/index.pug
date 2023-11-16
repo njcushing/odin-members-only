@@ -29,14 +29,14 @@ block content
           div.message-top-row
             div.message-information
               h4.message-title= message.title
-              h5.message-date-posted Date Posted: #{message.date_posted_formatted}
               if (currentUser)
                 if (currentUser.member)
                   h5.message-author Posted by: #{`${message.author.first_name} ${message.author.last_name}`}
+                  h5.message-date-posted Date Posted: #{message.date_posted_formatted}
                 else
-                  h5.message-author-failed Become a member to see the author of this message
+                  h5.message-date-posted-author-failed Become a member to see the post date and author of this message
               else
-                h5.message-author-failed Log in to see the author of this message
+                h5.message-date-posted-author-failed Log in to see the post date and author of this message
             if(currentUser && currentUser.admin)
               a.message-delete(href=`/delete-message/${message.url}`)
                 button Delete
