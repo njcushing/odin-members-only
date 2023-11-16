@@ -17,7 +17,7 @@ MessageSchema.virtual("url").get(function () {
 MessageSchema.virtual("date_posted_formatted").get(function () {
     return this.date_posted
         ? DateTime.fromJSDate(this.date_posted).toLocaleString(
-              DateTime.DATE_MED
+              DateTime.DATETIME_SHORT_WITH_SECONDS
           )
         : null;
 });
