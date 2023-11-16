@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  h3 Become a member
+  if (currentUser)
+    p To become a member, enter the secret passcode into the box below:
+    form(action="" method="POST")
+      input#password(name="password" type="password" required=true)
+      button(type="submit") Submit
+  else
+    p You must be signed in to become a member.
+    a(href="/sign-in")
+      button Sign In
+  hr
+  a(href="/")
+    button Return to Home
