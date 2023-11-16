@@ -29,6 +29,7 @@ const signinRouter = require("./routes/signin");
 const signoutRouter = require("./routes/signout");
 const newmessageRouter = require("./routes/newmessage");
 const membershipRouter = require("./routes/membership");
+const administratorRouter = require("./routes/administrator");
 
 const app = express();
 
@@ -102,6 +103,7 @@ app.use("/sign-up", signupRouter);
 app.use("/sign-out", signoutRouter);
 app.use("/new-message", newmessageRouter);
 app.use("/membership", membershipRouter);
+app.use("/administrator", administratorRouter);
 
 // Catch 404 and forward to error handler
 app.use(function (req, res, next) {
