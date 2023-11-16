@@ -20,7 +20,7 @@ exports.membershipPost = [
         }),
     asyncHandler(async (req, res, next) => {
         const errors = validationResult(req);
-        if (!res.locals.currentUser) res.render("newmessage_form");
+        if (!res.locals.currentUser) res.render("membership");
         if (!errors.isEmpty()) {
             res.render("membership", { errors: errors.array() });
         } else {
