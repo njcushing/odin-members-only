@@ -3,12 +3,12 @@ const { DateTime } = require("luxon");
 
 const Schema = mongoose.Schema;
 
-const MessageSchema = {
+const MessageSchema = new Schema({
     author: { type: Schema.Types.ObjectId, ref: "User", required: true },
     title: { type: String, required: true },
     text: { type: String, required: true },
     date_posted: { type: Date },
-};
+});
 
 MessageSchema.virtual("url").get(function () {
     return `/messages/${this._id}`;
