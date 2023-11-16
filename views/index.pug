@@ -1,6 +1,21 @@
 extends layout
 
 block content
+  h1 Welcome to the Secret Clubhouse!
   if (currentUser)
     h2 Welcome back #{currentUser.first_name} #{currentUser.last_name}!
+    a(href="/new-message")
+      button Create a New Message
+  else
+    h2 You must be signed in to post messages.
+  hr
+  h3 Messages:
+  if (messages)
+    ul.message-list(style={"list-style": "none"})
+      for message in messages
+        li.message
+          h4.message-title= message.title
+          h5.message-date-posted Date Posted: #{message.date_posted_formatted}
+          h5.message-author= currentUser ? currentUser.member ? message.author.first_name : "Become a member to see the author of this message" : "Log in to see the author of this message"
+          p.message-text= message.text
 
