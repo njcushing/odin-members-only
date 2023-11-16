@@ -24,9 +24,26 @@ exports.signinPost = [
     asyncHandler(async (req, res, next) => {
         const errors = validationResult(req);
         if (errors.isEmpty()) {
-            passport.authenticate("local", null, (err, user, options) => {
+            passport.authenticate("local", (err, user, options) => {
                 if (err) next(err);
-                if (user) res.redirect("/");
+                if (user) {
+                    req.login(user, (error) => {
+                        if (error) {
+                            res.render("signin_form", {
+                                errors: !errors.isEmpty()
+                                    ? errors.array()
+                                    : null,
+                                authError: errors.isEmpty()
+                                    ? new Error(
+                                          "There was a problem logging you in - please try again."
+                                      )
+                                    : null,
+                            });
+                        } else {
+                            res.redirect("/");
+                        }
+                    });
+                }
                 if (options && options.message) {
                     res.render("signin_form", {
                         errors: !errors.isEmpty() ? errors.array() : null,
