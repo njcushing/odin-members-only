@@ -6,6 +6,8 @@ const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcryptjs");
+const path = require("path");
+const logger = require("morgan");
 const RateLimit = require("express-rate-limit");
 const helmet = require("helmet");
 const compression = require("compression");
@@ -20,10 +22,6 @@ main().catch((err) => console.log(err));
 async function main() {
     await mongoose.connect(mongoDB);
 }
-
-const path = require("path");
-const cookieParser = require("cookie-parser");
-const logger = require("morgan");
 
 const indexRouter = require("./routes/index");
 const signupRouter = require("./routes/signup");
@@ -81,15 +79,15 @@ passport.deserializeUser(async (id, done) => {
         done(err);
     }
 });
-app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
+
+app.use(express.static(path.join(__dirname, "public")));
+app.use(session({ secret: "cats", resave: true, saveUninitialized: false }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
 
 app.use(logger("dev"));
 app.use(express.json());
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
 
 app.use(compression());
 
