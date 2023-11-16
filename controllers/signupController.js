@@ -61,6 +61,7 @@ exports.signupPost = [
                                     email: req.body.username,
                                     password: hashedPassword,
                                     member: false,
+                                    admin: false,
                                 });
                                 const result = await user.save();
                                 passport.authenticate("local", {
