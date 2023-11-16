@@ -28,6 +28,7 @@ const signupRouter = require("./routes/signup");
 const signinRouter = require("./routes/signin");
 const signoutRouter = require("./routes/signout");
 const newmessageRouter = require("./routes/newmessage");
+const deletemessageRouter = require("./routes/deletemessage");
 const membershipRouter = require("./routes/membership");
 const administratorRouter = require("./routes/administrator");
 
@@ -102,6 +103,7 @@ app.use("/sign-in", signinRouter);
 app.use("/sign-up", signupRouter);
 app.use("/sign-out", signoutRouter);
 app.use("/new-message", newmessageRouter);
+app.use("/delete-message", deletemessageRouter);
 app.use("/membership", membershipRouter);
 app.use("/administrator", administratorRouter);
 
