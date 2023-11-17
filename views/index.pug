@@ -30,7 +30,7 @@ block content
             div.message-information
               h4.message-title= message.title
               if (currentUser)
-                if (currentUser.member)
+                if (currentUser.member || currentUser.admin)
                   h5.message-author Posted by: #{`${message.author.first_name} ${message.author.last_name}`}
                   h5.message-date-posted Date Posted: #{message.date_posted_formatted}
                 else
